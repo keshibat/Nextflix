@@ -1,5 +1,6 @@
 import styles from "./navbar.module.css"
 
+
 const NavBar = (props) => {
   const {username} = props;
   return (
