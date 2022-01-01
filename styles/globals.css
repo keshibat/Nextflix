@@ -2,8 +2,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
   background-color: var(--black40);
   color: white;
   overflow-x: hidden;
@@ -54,7 +55,17 @@ h3 {
   font-weight: 600;
 }
 
-
+button {
+  background-image: none;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+  text-transform: none;
+  margin: 0;
+  border: 0px;
+  outline: 0px;
+  color: var(--white);
+}
 
 :root {
   --black: rgb(0, 0, 0);
