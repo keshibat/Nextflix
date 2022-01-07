@@ -4,18 +4,19 @@ import Banner from "../components/banner/banner"
 import NavBar from "../components/nav/navbar"
 import SectionCards from "../components/card/section-cards"
 
-export default function Home() {
-  const disneyVideos = [
-    {
-      imgUrl: "/static/clifford.webp"
-    },
-    {
-      imgUrl: "/static/clifford.webp"
-    },
-    {
-      imgUrl: "/static/clifford.webp"
-    },
-  ]
+import { getVideos } from "../lib/videos"
+
+export async function getServerSideProps() {
+  const disneyVideos = await getVideos("disney%20trailer");
+  const productivityVideos = await getVideos("Productivity");
+  const travelVideos = await getVideos("travel");
+  // const popularVideos = await getVideos("disney trailer");
+  return {
+     props: { disneyVideos,  productivityVideos, travelVideos}
+  }
+}
+
+export default function Home({disneyVideos, productivityVideos, travelVideos}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -29,7 +30,9 @@ export default function Home() {
       />
       <div className={styles.sectionWrapper}>
         <SectionCards title="Disney" videos={disneyVideos} size="large" />
-        <SectionCards title="Productivity" videos={disneyVideos} size="medium" />
+        <SectionCards title="Travel" videos={travelVideos} size="small" />
+        <SectionCards title="Productivity" videos={productivityVideos} size="medium" />
+        <SectionCards title="Popular" videos={[]} size="small" />
       </div>
 
     </div>
