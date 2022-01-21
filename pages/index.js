@@ -26,7 +26,9 @@ export default function Home({disneyVideos, productivityVideos, travelVideos, po
       </Head>
       <div className={styles.main}>
         <NavBar username="kenery"/>
-        <Banner title="Pulp Fiction"
+        <Banner
+                videoId="CaimKeDcudo"
+                title="Pulp Fiction"
                 subTitle="test test subtitles"
                 imgUrl="/static/clifford.webp"
         />
