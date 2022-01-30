@@ -2,20 +2,13 @@ import { useRouter } from "next/router"
 import Modal from 'react-modal';
 import styles from "../../styles/Video.module.css"
 import clsx from "classnames"
+import NavBar from "../../components/nav/navbar"
 import { getYoutubeVideoById } from "../../lib/videos"
 
 Modal.setAppElement('#__next');
 
-export async function getStaticProps() {
-  // data to fetch from API
-  //   const video = {
-  //   title: "hi cute dog",
-  //   publishTime: "1990-01-01",
-  //   description: "A big red dog that is super coute, can he get any bigger?",
-  //   channelTitle: "Paramount Pictures",
-  //   viewCount: 34234234234
-  // }
-  const videoId = "4zH5iYM4wJo"
+export async function getStaticProps(context) {
+  const videoId = context.params.videoId
   const videoArray = await getYoutubeVideoById(videoId);
   return {
     props: {
@@ -46,6 +39,7 @@ const Video = ({video}) => {
   } = video;
   return (
   <div className={styles.container}>
+    <NavBar />
     <Modal
         isOpen={true}
         contentLabel="watch the video"
