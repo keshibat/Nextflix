@@ -19,7 +19,6 @@ export async function getServerSideProps() {
 }
 
 export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos}) {
-  startFetchMyQuery()
   return (
     <div className={styles.container}>
       <Head>
