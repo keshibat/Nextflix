@@ -6,29 +6,28 @@ export default async function login(req, res) {
       try {
         const auth = req.headers.authorization;
         const didToken = auth ? auth.substr(7) : "";
-        //invoke magic
 
-        const metadata = await magicAdmin.users.getMetadataByToken(didToken);
-        console.log({ metadata });
-        res.send({ done: true });
+        //invoke magic
+        const { issuer } = await magicAdmin.users.getMetadataByToken(didToken);
+        console.log(issuer);
 
         // create jwt
         const token = jwt.sign({
-            ...metadata,
-            iat: Math.floor(Date.now() /1000),
-            exp: Math.floor(Date.now() /1000 +7 *24 * 60 * 60),
-            "https://hasura.io/jwt/claims": {
-              "x-hasura-allowed-roles": ["user", "admin"],
-              "x-hasura-default-role": "user",
-              "x-hasura-user-id": `${metadata.issuer}`,
-            },
+          iat: Math.floor(Date.now() / 1000),
+          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+          "https://hasura.io/jwt/claims": {
+            "x-hasura-allowed-roles": ["user", "admin"],
+            "x-hasura-default-role": "user",
+            "x-hasura-user-id": `${issuer}`,
+          },
         },
-        "abcdeabcdeabcdeabcdeabcdeabcdeabc"
+        "process.env.JWT_SECRET"
         );
-        console.log({ token });
+        console.log("abc", { token });
+        res.send({ done: true });
 
-      } catch {
-        console.error("Something went wrong loggin in")
+      } catch(error) {
+        console.error("Something went wrong loggin in", {error})
         res.status(500).send({ done: false });
       }
     } else {
