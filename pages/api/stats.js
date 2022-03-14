@@ -13,12 +13,23 @@ export default async function stats(req, res) {
         const doesStatsExist = await findVideoIdByUser(userId, videoId);
         if(doesStatsExist) {
           // update it
-          const response = await udateStats(token, {favourited:0, watched: true, userId, videoId: "0U0L4uT0btQ"});
+          const response = await udateStats(token, {
+            watched: true,
+            userId,
+            videoId,
+            favourited: 0,
+          });
           res.send({ msg: "it works", updateStats: response})
         } else {
           // add it
+          const response = await udateStats(token, {
+            watched: true,
+            userId,
+            videoId,
+            favourited: 0,
+          });
+          res.send({ msg: "it works", updateStats: response})
         }
-        res.send({ msg: "it works", decodedToken, doesStatsExist})
       }
     } catch(error) {
       console.log("Error occured /stats", error)
