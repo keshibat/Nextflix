@@ -10,8 +10,13 @@ export default async function stats(req, res) {
         const videoId = req.query.videoId;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
         const userId = decodedToken.issuer;
-        const findVideoId = await findVideoIdByUser(userId, videoId);
-        res.send({ msg: "it works", decodedToken, findVideoId})
+        const doesStatsExist = await findVideoIdByUser(userId, videoId);
+        if(doesStatsExist) {
+          // update it
+        } else {
+          // add it
+        }
+        res.send({ msg: "it works", decodedToken, doesStatsExist})
       }
     } catch(error) {
       console.log("Error occured /stats", error)
