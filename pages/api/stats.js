@@ -7,7 +7,7 @@ export default async function stats(req, res) {
       if(!token) {
         res.status(403).send({})
       } else {
-        const {videoId, favourited, watched = true } = req.body;
+        const { videoId, favourited, watched = true } = req.body;
         if (videoId) {
           const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
           const userId = decodedToken.issuer;
