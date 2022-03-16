@@ -7,7 +7,8 @@ const token = req.cookies.token;
       if(!token) {
         res.status(403).send({})
       } else {
-        const { videoId } = req.body;
+        const inputParams = req.method === "POST" ? req.body : req.query;
+        const { videoId } = inputParams;
         if (videoId) {
           const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
           const userId = decodedToken.issuer;
