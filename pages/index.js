@@ -4,17 +4,20 @@ import Banner from "../components/banner/banner"
 import NavBar from "../components/nav/navbar"
 import SectionCards from "../components/card/section-cards"
 
-import { getVideos, getPopularVideos } from "../lib/videos"
+import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos"
 
 
 export async function getServerSideProps() {
+  const userId = "";
+  const token = "";
+  const wathItAgainVideos = await getWatchItAgainVideos;
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("Productivity");
   const travelVideos = await getVideos("travel");
   const popularVideos = await getPopularVideos();
   // const popularVideos = await getVideos("disney trailer");
   return {
-     props: { disneyVideos,  productivityVideos, travelVideos, popularVideos }
+     props: { disneyVideos,  productivityVideos, travelVideos, popularVideos, wathItAgainVideos }
   }
 }
 
