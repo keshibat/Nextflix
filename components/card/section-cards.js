@@ -20,7 +20,6 @@ const SectionCards = (props) => {
             )
           })
         }
-
       </div>
     </section>
   )

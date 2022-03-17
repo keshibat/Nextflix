@@ -6,22 +6,22 @@ import SectionCards from "../components/card/section-cards"
 
 import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos"
 
-
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const token = context.req ? context.req.cookies.token : null;
+  console.log({token});
   const userId = "";
-  const token = "";
-  const wathItAgainVideos = await getWatchItAgainVideos;
+  const watchItAgainVideos = await  await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("Productivity");
   const travelVideos = await getVideos("travel");
   const popularVideos = await getPopularVideos();
   // const popularVideos = await getVideos("disney trailer");
   return {
-     props: { disneyVideos,  productivityVideos, travelVideos, popularVideos, wathItAgainVideos }
+     props: { disneyVideos,  productivityVideos, travelVideos, popularVideos, watchItAgainVideos }
   }
 }
 
-export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos, wathItAgainVideos}) {
+export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos, watchItAgainVideos}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -38,7 +38,7 @@ export default function Home({disneyVideos, productivityVideos, travelVideos, po
         />
         <div className={styles.sectionWrapper}>
           <SectionCards title="Disney" videos={disneyVideos} size="large" />
-          <SectionCards title="Watch it again" videos={wathItAgainVideos} size="small" />
+          <SectionCards title="Watch it again" videos={watchItAgainVideos} size="small" />
           <SectionCards title="Travel" videos={travelVideos} size="small" />
           <SectionCards title="Productivity" videos={productivityVideos} size="medium" />
           <SectionCards title="Popular" videos={popularVideos} size="small" />
