@@ -21,7 +21,7 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos}) {
+export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos, wathItAgainVideos}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -38,6 +38,7 @@ export default function Home({disneyVideos, productivityVideos, travelVideos, po
         />
         <div className={styles.sectionWrapper}>
           <SectionCards title="Disney" videos={disneyVideos} size="large" />
+          <SectionCards title="Watch it again" videos={wathItAgainVideos} size="small" />
           <SectionCards title="Travel" videos={travelVideos} size="small" />
           <SectionCards title="Productivity" videos={productivityVideos} size="medium" />
           <SectionCards title="Popular" videos={popularVideos} size="small" />
