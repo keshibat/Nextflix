@@ -5,11 +5,19 @@ import NavBar from "../components/nav/navbar"
 import SectionCards from "../components/card/section-cards"
 
 import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos"
+import useRedirectUser from '../utils/redirectUser'
 
 export async function getServerSideProps(context) {
-  const token = context.req ? context.req.cookies.token : null;
-  console.log({token});
-  const userId = "";
+  const { userId, token } = await useRedirectUser(context);
+    if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/login",
+        permanet: false,
+      },
+    }
+  }
   const watchItAgainVideos = await  await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("Productivity");
@@ -21,7 +29,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos, watchItAgainVideos}) {
+export default function Home({disneyVideos, productivityVideos, travelVideos, popularVideos, watchItAgainVideos=[] }) {
   return (
     <div className={styles.container}>
       <Head>
