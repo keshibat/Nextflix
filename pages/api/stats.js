@@ -50,7 +50,6 @@ const token = req.cookies.token;
         }
       }
   } catch(error) {
-      console.log("Error occured /stats", error)
       res.status(500).send({ done: false, error: error?.message })
     }
 }

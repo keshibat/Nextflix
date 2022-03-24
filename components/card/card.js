@@ -23,7 +23,6 @@ const Card = (props) => {
 
   }
   const handleOnError = () => {
-    console.log("hi error")
     setImgSrc("https://images.unsplash.com/photo-1515634928627-2a4e0dae3ddf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80")
   }
 
