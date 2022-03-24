@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react"
 import styles from "./navbar.module.css"
+
 import { useRouter } from 'next/router'
 import Link from "next/link"
 import Image from "next/image"
+
 import { magic } from "../../lib/magic-client"
 
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [username, setUsername] = useState("")
+  const [ didToken, setDidToekn] = useState("")
   const router = useRouter()
 
-  useEffect(async() => {
+  useEffect(async () => {
     try {
-      const { email, issuer } = await magic.user.getMetadata()
-      const didToken = magic.user.getIdToken()
-      if(email) {
-        setUsername(email)
+      const { email, issuer } = await magic.user.getMetadata();
+      const didToken = await magic.user.getIdToken();
+      if (email) {
+        setUsername(email);
+        setDidToken(didToken);
       }
-    } catch (error){
-      console.error("Error retrieving email", error)
+    } catch (error) {
+      console.error("Error retrieving email", error);
     }
   }, []);
 
@@ -37,22 +41,24 @@ const NavBar = () => {
     setShowDropdown(!showDropdown)
   }
 
-  const handleSignout = async(e) => {
-    e.preventDefault()
-    try {
-      const response = await fetch("api/logout", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${didToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-      const res = await response.json();
-    } catch {
-      console.error("Error logging out", error)
-      router.push("/login")
-    }
-  };
+  const handleSignout = async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch("/api/logout", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${didToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        const res = await response.json();
+      } catch (error) {
+        console.error("Error logging out", error);
+        router.push("/login");
+      }
+    };
 
   return (
     <div className={styles.container}>
