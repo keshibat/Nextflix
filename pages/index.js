@@ -5,7 +5,7 @@ import NavBar from "../components/nav/navbar"
 import SectionCards from "../components/card/section-cards"
 
 import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos"
-import UseRedirectUser from '../utils/redirectUser'
+import UseRedirectUser from "../utils/redirectUser"
 
 export async function getServerSideProps(context) {
   const { userId, token } = await UseRedirectUser(context);
