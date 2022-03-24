@@ -9,15 +9,7 @@ import useRedirectUser from '../utils/redirectUser'
 
 export async function getServerSideProps(context) {
   const { userId, token } = await useRedirectUser(context);
-    if (!userId) {
-    return {
-      props: {},
-      redirect: {
-        destination: "/login",
-        permanet: false,
-      },
-    }
-  }
+
   const watchItAgainVideos = await  await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("Productivity");

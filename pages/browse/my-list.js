@@ -9,7 +9,6 @@ import styles from "../../styles/MyList.module.css";
 export async function getServerSideProps(context) {
   const { userId, token } = await useRedirectUser(context);
   const videos = await getMyList(userId, token);
-
   return {
     props: {
       myListVideos: videos,
