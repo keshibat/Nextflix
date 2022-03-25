@@ -1,16 +1,22 @@
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
+
 import Banner from "../components/banner/banner"
 import NavBar from "../components/nav/navbar"
+
 import SectionCards from "../components/card/section-cards"
 
-import { getVideos, getPopularVideos, getWatchItAgainVideos } from "../lib/videos"
+import {
+  getVideos,
+  getPopularVideos,
+  getWatchItAgainVideos
+} from "../lib/videos"
 import UseRedirectUser from "../utils/redirectUser"
 
 export async function getServerSideProps(context) {
   const { userId, token } = await UseRedirectUser(context);
+  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
 
-  const watchItAgainVideos = await  await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney%20trailer");
   const productivityVideos = await getVideos("Productivity");
   const travelVideos = await getVideos("travel");
